@@ -3,7 +3,7 @@ import {
   getEwayCredentials,
 } from 'react-native-ewayrapid-android';
 import type { GenerateCustomerToken, Path } from '../types';
-import messages from '../../locale/en.json';
+import messages from '../locale/en.json';
 import type { Title } from '../NativeEwayrapidAndroid';
 
 export const buildEwayUrl = (path: Path) =>
