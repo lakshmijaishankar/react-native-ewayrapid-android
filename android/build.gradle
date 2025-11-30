@@ -1,0 +1,88 @@
+buildscript {
+  ext.getExtOrDefault = {name ->
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['EwayrapidAndroid_' + name]
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
+}
+
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+def getExtOrIntegerDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["EwayrapidAndroid_" + name]).toInteger()
+}
+
+def apikeyPropertiesFile = project.rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+if (apikeyPropertiesFile.exists()) {
+    apikeyProperties.load(apikeyPropertiesFile.newDataInputStream())
+}
+
+android {
+  namespace "com.ewayrapidandroid"
+
+  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+    buildConfigField "String", "EWAY_API_KEY", apikeyProperties['EWAY_API_KEY']
+    buildConfigField "String", "EWAY_END_POINT", apikeyProperties['EWAY_END_POINT']
+    buildConfigField "String", "EWAY_API_PASSWORD", apikeyProperties['EWAY_API_PASSWORD']
+    buildConfigField "String", "EWAY_PUBLIC_KEY", apikeyProperties['EWAY_PUBLIC_KEY']
+  }
+
+  buildFeatures {
+    buildConfig true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+  }
+
+  lintOptions {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+
+  sourceSets {
+    main {
+      java.srcDirs += [
+        "generated/java",
+        "generated/jni"
+      ]
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+  google()
+}
+
+def kotlin_version = getExtOrDefault("kotlinVersion")
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "com.ewaypayments:android-sdk:2.0.0"
+}
