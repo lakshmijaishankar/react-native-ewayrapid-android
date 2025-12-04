@@ -1,4 +1,4 @@
-package com.ewayrapid;
+package com.ewayrapidandroid;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
