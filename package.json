@@ -1,6 +1,6 @@
 {
   "name": "react-native-ewayrapid-android",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "React Native module that integrates the eWAY Rapid Android SDK to enable secure payment processing in Android applications.",
   "react-native": "src/index",
   "main": "./lib/module/index.js",
