@@ -1,5 +1,4 @@
 import { useCallback, useRef } from 'react';
-import EwayrapidAndroid from '../NativeEwayrapidAndroid';
 import {
   buildCustomerTokenData,
   buildEwayBasicAuthHeaders as buildEwayHeaders,
@@ -11,14 +10,13 @@ import type {
   GenerateCustomerTokenResponse,
   GenerateCustomerToken,
 } from '../types';
-
-const {
+import {
   getEwayCredentials,
+  getAuthHeader,
   prepareTransaction,
   makePayment,
-  getAuthHeader,
   encryptCardDetails,
-} = EwayrapidAndroid;
+} from 'react-native-ewayrapid-android';
 
 export function useEwayRapidPayment() {
   const ewayCredentials = useRef(getEwayCredentials());

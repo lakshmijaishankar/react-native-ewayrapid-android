@@ -15,6 +15,11 @@ buildscript {
   }
 }
 
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+boolean  IS_NEW_ARCHITECTURE_ENABLED = isNewArchitectureEnabled()
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
@@ -39,6 +44,7 @@ android {
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+    buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
     buildConfigField "String", "EWAY_API_KEY", apikeyProperties['EWAY_API_KEY']
     buildConfigField "String", "EWAY_END_POINT", apikeyProperties['EWAY_END_POINT']
     buildConfigField "String", "EWAY_API_PASSWORD", apikeyProperties['EWAY_API_PASSWORD']
@@ -66,10 +72,11 @@ android {
 
   sourceSets {
     main {
-      java.srcDirs += [
-        "generated/java",
-        "generated/jni"
-      ]
+      if (IS_NEW_ARCHITECTURE_ENABLED) {
+        java.srcDirs += ['src/newarch/java']
+      } else {
+        java.srcDirs += ['src/oldarch/java']
+      }
     }
   }
 }
