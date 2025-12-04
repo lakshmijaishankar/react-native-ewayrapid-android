@@ -9,8 +9,6 @@ import com.ewayrapidandroid.exception.ExceptionUtils;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -32,25 +30,21 @@ import java.util.Locale;
 
 import okhttp3.Credentials;
 
-@ReactModule(name = NativeEwayrapidAndroidSpec.NAME)
-public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
+public class EwayRapidImpl {
 
     public static final String NAME = "EwayrapidAndroid";
     private final Transaction transaction;
 
-    public EwayrapidAndroidModule(ReactApplicationContext reactContext) {
-        super(reactContext);
+    public EwayRapidImpl() {
         this.transaction = new Transaction();
         RapidAPI.RapidEndpoint = BuildConfig.EWAY_END_POINT;
         RapidAPI.PublicAPIKey = BuildConfig.EWAY_PUBLIC_KEY;
     }
 
-    @Override
     public String getName() {
         return NAME;
     }
 
-    @Override
     public WritableMap getEwayCredentials() {
         WritableMap map = Arguments.createMap();
         map.putString("EWAY_API_KEY", BuildConfig.EWAY_API_KEY);
@@ -60,7 +54,6 @@ public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
         return map;
     }
 
-    @Override
     public void prepareTransaction(@NonNull ReadableMap transaction, Promise promise) {
         WritableMap dataMap = Arguments.createMap();
         WritableMap resultMap = Arguments.createMap();
@@ -111,7 +104,6 @@ public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
         }
     }
 
-    @Override
     public void makePayment(Promise promise) {
         WritableMap dataMap = Arguments.createMap();
         WritableMap resultMap = Arguments.createMap();
@@ -140,7 +132,6 @@ public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
         }
     }
 
-    @Override
     public String getAuthHeader() {
         try {
             return Credentials.basic(BuildConfig.EWAY_API_KEY, BuildConfig.EWAY_API_PASSWORD);
@@ -149,7 +140,6 @@ public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
         }
     }
 
-    @Override
     public void encryptCardDetails(ReadableMap cardObj, Promise promise) {
         WritableMap dataMap = Arguments.createMap();
         WritableMap resultsMap = Arguments.createMap();
@@ -175,5 +165,4 @@ public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
             promise.resolve(resultsMap);
         }
     }
-
 }
