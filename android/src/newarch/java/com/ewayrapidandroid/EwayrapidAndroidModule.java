@@ -9,11 +9,11 @@ import com.facebook.react.module.annotations.ReactModule;
 import androidx.annotation.NonNull;
 
 @ReactModule(name = NativeEwayrapidAndroidSpec.NAME)
-public class EwayRapidAndroidMoule extends NativeEwayrapidAndroidSpec {
+public class EwayrapidAndroidModule extends NativeEwayrapidAndroidSpec {
 
     private final EwayRapidImpl ewayRapidImpl;
 
-    public EwayRapidAndroidMoule(ReactApplicationContext reactContext) {
+    public EwayrapidAndroidModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.ewayRapidImpl = new EwayRapidImpl();
     }

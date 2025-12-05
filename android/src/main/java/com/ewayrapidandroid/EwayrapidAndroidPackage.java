@@ -16,13 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ReactModuleList(nativeModules = {EwayRapidAndroidMoule.class})
+@ReactModuleList(nativeModules = {EwayrapidAndroidModule.class})
 public class EwayrapidAndroidPackage extends TurboReactPackage {
 
     @Override
     public NativeModule getModule(String name, ReactApplicationContext reactContext) {
         if (name.equals(EwayRapidImpl.NAME)) {
-            return new EwayRapidAndroidMoule(reactContext);
+            return new EwayrapidAndroidModule(reactContext);
         } else {
             return null;
         }
@@ -61,7 +61,7 @@ public class EwayrapidAndroidPackage extends TurboReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new EwayRapidAndroidMoule(reactContext));
+        modules.add(new EwayrapidAndroidModule(reactContext));
         return modules;
     }
 

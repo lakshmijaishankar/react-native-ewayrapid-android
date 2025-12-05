@@ -1,6 +1,8 @@
 import { TurboModuleRegistry, type TurboModule } from 'react-native';
 
-export type Country = 'AU' | 'NZ';
+export type Country = 'AU' | 'NZ' | 'UK' | 'SG' | 'HK' | 'MY';
+
+export type CountryCode = 'AUD' | 'NZD' | 'GBP' | 'SGD' | 'HKD' | 'MYR';
 
 export type EwayCredentials = {
   readonly EWAY_API_KEY: string;
@@ -19,7 +21,7 @@ export type Phone = string;
 
 export type Payment = {
   totalAmount: number;
-  currencyCode: 'AUD';
+  currencyCode: CountryCode;
   invoiceReference?: string;
   invoiceDescription?: string;
   invoiceNumber?: string;
