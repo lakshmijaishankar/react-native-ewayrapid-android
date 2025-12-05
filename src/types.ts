@@ -9,7 +9,7 @@ import {
   type Transaction,
 } from './NativeEwayrapidAndroid';
 
-export type Country = 'AU' | 'NZ';
+export type Country = 'AU' | 'NZ' | 'UK' | 'SG' | 'HK' | 'MY';
 
 export type Path =
   | 'transaction'
