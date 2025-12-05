@@ -1,7 +1,8 @@
 package com.ewayrapidandroid;
 
 import androidx.annotation.NonNull;
-import com.facebook.react.BaseReactPackage;
+//import com.facebook.react.BaseReactPackage;
+import com.facebook.react.TurboReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.module.annotations.ReactModuleList;
@@ -9,13 +10,14 @@ import com.facebook.react.module.model.ReactModuleInfo;
 import com.facebook.react.module.model.ReactModuleInfoProvider;
 import com.facebook.react.uimanager.ViewManager;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @ReactModuleList(nativeModules = {EwayRapidAndroidMoule.class})
-public class EwayrapidAndroidPackage extends BaseReactPackage {
+public class EwayrapidAndroidPackage extends TurboReactPackage {
 
     @Override
     public NativeModule getModule(String name, ReactApplicationContext reactContext) {
@@ -48,10 +50,19 @@ public class EwayrapidAndroidPackage extends BaseReactPackage {
             }
         };
     }
+
     @NonNull
     @Override
     public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
         return Collections.emptyList();
+    }
+
+    @NonNull
+    @Override
+    public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
+        List<NativeModule> modules = new ArrayList<>();
+        modules.add(new EwayRapidAndroidMoule(reactContext));
+        return modules;
     }
 
 }
